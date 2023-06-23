@@ -1,0 +1,264 @@
+export const description =
+  'On this page, we’ll dive into the different yearly goal endpoints you can use to manage Yearly Goal programmatically.'
+
+# Yearly Goal
+
+As the name suggests, Yearly Goal are a core part of Protocol — the very reason Protocol exists is so you can have secure conversations with your Yearly Goal. On this page, we'll dive into the different yearly goal endpoints you can use to manage Yearly Goal programmatically. We'll look at how to query, create, update, and delete Yearly Goal.
+
+## The Yearly Goal model
+
+The Yearly Goal model contains all the information about your Yearly Goal, such as their username, avatar, and username. It also contains a reference to the conversation between you and the yearly goal and information about when they were last active on Protocol.
+
+### Properties
+
+<Properties>
+  <Property name="_id" type="string">
+    Unique identifier for the Yearly Goal.
+  </Property>
+  <Property name="resolutions" type="string">
+    The resolutions for the Yearly Goal.
+  </Property>
+  <Property name="photo" type="string">
+    The photo for the Yearly Goal.
+  </Property>
+  <Property name="due_date" type="string">
+    The Yearly Goal due_date in the Yearly Goal list.
+  </Property>
+  <Property name="share_with" type="string">
+    The Yearly Goal share_with in the Yearly Goal list.
+  </Property>
+  <Property name="category_id" type="string">
+    The Yearly Goal category_id in the Yearly Goal list.
+  </Property>
+  <Property name="user_id" type="boolean">
+    The yearly goal accout in the Yearly Goal list.
+  </Property>
+</Properties>
+
+---
+
+## List all Yearly Goal {{ tag: 'GET', label: '/yearly-goals' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to retrieve a paginated list of all your Yearly Goal. By default, a maximum of ten Yearly Goal are shown per page.
+
+    ### Optional attributes
+
+    <Properties>
+      <Property name="limit" type="integer">
+        Limit the number of Yearly Goal returned.
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="GET" label="/yearly-goals">
+    ```typescript {{ title: 'axios'}}
+    const response = axios.get('/yearly-goals')
+    ```
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    {
+      "has_more": false,
+      "data": [
+        {
+          "_id": "WAz8eIbvDR60rouK",
+          "resolutions" :"BB up to 70kg",
+          "photo": "j091j2490j0q2/1swq",
+          "due_date": 29/04/2023,
+          "share_with": 1,
+          "category":
+          {
+            "name" : "Financial"
+          },
+          "user": {
+            "name" : "John Doe",
+          },
+        },
+        {
+          "_id": "hSIhXBhNe8X1d8Et"
+          // ...
+        }
+      ]
+    }
+    ```
+
+  </Col>
+</Row>
+
+---
+
+## Create a Yearly Goal {{ tag: 'POST', label: '/yearly-goals' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to create a new yearly goal to your yearly goal list in Protocol. To add a user, you must provide their Protocol name,  username, email, password.
+
+    ### Required attributes
+    <Properties>
+      <Property name="_id" type="string">
+        Unique identifier for the yearly goal.
+      </Property>
+      <Property name="resolutions" type="string">
+        The resolutions for the yearly goal.
+      </Property>
+      <Property name="photo" type="string">
+        The photo for the yearly goal.
+      </Property>
+      <Property name="due_date" type="datetime">
+        The yearly goal due_date for the yearly goal.
+      </Property>
+      <Property name="share_with" type="string">
+        The yearly goal share with for the yearly goal.
+      </Property>
+      <Property name="category_id" type="string">
+        The yearly goal category  for the yearly goal.
+      </Property>
+      <Property name="user_id" type="string">
+        The yearly goal id for the yearly goal.
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="POST" label="/yearly-goals">
+    ```typescript {{ title: 'axios'}}
+    const response = axios.post('/yearly-goals', {
+    "_id": "WAz8eIbvDR60rouK",
+    "resolutions" :"BB up to 70kg",
+    "photo": "j091j2490j0q2/1swq",
+    "due_date": 29/04/2023,
+    "share_with": 1,
+    "category_id": 1
+    "user_id": 1
+    })
+    ```
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    {
+      "_id": "WAz8eIbvDR60rouK",
+    }
+    ```
+
+  </Col>
+</Row>
+
+---
+
+## Retrieve a yearly goal {{ tag: 'GET', label: '/yearly-goals/:id' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to retrieve a yearly goal by providing their Protocol username. Refer to [the list](#the-user-model) at the top of this page to see which properties are included with yearly goal objects.
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="GET" label="/yearly-goals/WAz8eIbvDR60rouK">
+    ```typescript {{ title: 'axios'}}
+    const response = axios.get('/yearly-goals/WAz8eIbvDR60rouK')
+    ```
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    {
+      "_id": "WAz8eIbvDR60rouK",
+      "resolutions" :"BB up to 70kg",
+      "photo": "j091j2490j0q2/1swq",
+      "due_date": 29/04/2023,
+      "share_with": 1,
+      "category":
+      {
+      "name" : "Financial"
+      },
+      "user": {
+        "name" : "John Doe",
+      },
+    }
+    ```
+
+  </Col>
+</Row>
+
+---
+
+## Update a yearly goal {{ tag: 'PUT', label: '/yearly-goals' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to perform an update on a yearly goal.
+
+    ### Optional attributes
+
+    <Properties>
+      <Property name="resolutions" type="string">
+        The resolutions for the yearly goal.
+      </Property>
+      <Property name="photo" type="string">
+        The photo for the yearly goal.
+      </Property>
+      <Property name="due_date" type="datetime">
+        The yearly goal due_date for the yearly goal.
+      </Property>
+      <Property name="share_with" type="string">
+        The yearly goal share with for the yearly goal.
+      </Property>
+      <Property name="category_id" type="string">
+        The yearly goal category  for the yearly goal.
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+     <CodeGroup title="Request" tag="PUT" label="/change-profile">
+    ```typescript {{ title: 'axios'}}
+    const response = axios.put('/change-profile', {
+     "resolutions" :"BB up to 70kg",
+     "photo": "j091j2490j0q2/1swq",
+     "due_date": 29/04/2023,
+     "share_with": 1,
+     "category":
+     {
+      "name" : "Financial"
+     },
+    })
+    ```
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    {
+      "_id": "WAz8eIbvDR60rouK",
+    }
+    ```
+
+  </Col>
+</Row>
+
+---
+
+## Delete a yearly goal {{ tag: 'DELETE', label: '/yearly-goals/:id' }}
+
+<Row>
+  <Col>
+    This endpoint allows you to delete Yearly Goal from your yearly goal list in Protocol. Note: This will also delete your conversation with the given user.
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="DELETE" label="/yearly-goals/WAz8eIbvDR60rouK">
+      ```typescript {{ title: 'axios'}}
+      const response = axios.delete('/yearly-goals/WAz8eIbvDR60rouK')
+      ```
+    </CodeGroup>
+
+  </Col>
+</Row>

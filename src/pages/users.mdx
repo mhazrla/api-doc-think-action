@@ -1,0 +1,360 @@
+export const description =
+  'On this page, we’ll dive into the different user endpoints you can use to manage users programmatically.'
+
+# Users
+
+As the name suggests, users are a core part of Protocol — the very reason Protocol exists is so you can have secure conversations with your users. On this page, we'll dive into the different user endpoints you can use to manage users programmatically. We'll look at how to query, create, update, and delete users.
+
+## The user model
+
+The user model contains all the information about your users, such as their username, avatar, and username. It also contains a reference to the conversation between you and the user and information about when they were last active on Protocol.
+
+### Properties
+
+<Properties>
+  <Property name="_id" type="string">
+    Unique identifier for the user.
+  </Property>
+  <Property name="name" type="string">
+    The name for the user.
+  </Property>
+  <Property name="username" type="string">
+    The username for the user.
+  </Property>
+  <Property name="email" type="string">
+    The user email in the user list.
+  </Property>
+  <Property name="password" type="string">
+    The user password in the user list.
+  </Property>
+  <Property name="bio" type="string">
+    The user bio in the user list.
+  </Property>
+  <Property name="acc_type" type="boolean">
+    The user accout type in the user list.
+  </Property>
+  <Property name="photo" type="string">
+    The user photo in the user list.
+  </Property>
+</Properties>
+
+---
+
+## List all users {{ tag: 'GET', label: '/users' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to retrieve a paginated list of all your users. By default, a maximum of ten users are shown per page.
+
+    ### Optional attributes
+
+    <Properties>
+      <Property name="limit" type="integer">
+        Limit the number of users returned.
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="GET" label="/users">
+    ```typescript {{ title: 'axios'}}
+    const response = axios.get('/users')
+    ```
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    {
+      "has_more": false,
+      "data": [
+        {
+          "_id": "WAz8eIbvDR60rouK",
+          "name" :"John Doe",
+          "username": "john123",
+          "email": "john@gmail.com",
+          "password": "$2Sjio.35H9H23!F/",
+          "bio": "Bio example",
+          "acc_type": 1,
+          "photo": inEIRvzjC6YLMX3o3!F/,
+        },
+        {
+          "_id": "hSIhXBhNe8X1d8Et"
+          // ...
+        }
+      ]
+    }
+    ```
+
+  </Col>
+</Row>
+
+---
+
+## Login user {{ tag: 'POST', label: '/login' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to login user to your user list in Protocol. To add a user, you must provide their Protocol name,  username, email, password.
+
+    ### Required attributes
+    <Properties>
+      <Property name="email" type="string">
+        The email for the user.
+      </Property>
+      <Property name="password" type="string">
+        The password for the user.
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="POST" label="/login">
+    ```typescript {{ title: 'axios'}}
+    const response = axios.post('/login', {
+      "email" : "johndoe@gmail.com",
+      "password" : "$2Sjio.35H9H23!F/",
+    })
+    ```
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    {
+      "_id": "WAz8eIbvDR60rouK",
+    }
+    ```
+
+  </Col>
+</Row>
+
+---
+
+## Create a user {{ tag: 'POST', label: '/register' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to register a new user to your user list in Protocol. To add a user, you must provide their Protocol name,  username, email, password.
+
+    ### Required attributes
+
+    <Properties>
+      <Property name="_id" type="string">
+    Unique identifier for the user.
+    </Property>
+      <Property name="name" type="string">
+        The name for the user.
+      </Property>
+      <Property name="username" type="string">
+        The username for the user.
+      </Property>
+      <Property name="email" type="string">
+        The user email for the user.
+      </Property>
+      <Property name="password" type="string">
+        The user password for the user.
+      </Property>
+      <Property name="acc_type" type="string">
+        The user account type for the user.
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="POST" label="/register">
+    ```typescript {{ title: 'axios'}}
+    const response = axios.post('/register', {
+      "name" : "John Doe",
+      "username" : "johndoe",
+      "email" : "johndoe@gmail.com",
+      "password" : "$2Sjio.35H9H23!F/",
+      "acc_type" : 1,
+    })
+    ```
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    {
+      "_id": "WAz8eIbvDR60rouK",
+    }
+    ```
+
+  </Col>
+</Row>
+
+---
+
+## Retrieve a user {{ tag: 'GET', label: '/users/:username' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to retrieve a user by providing their Protocol username. Refer to [the list](#the-user-model) at the top of this page to see which properties are included with user objects.
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="GET" label="/users/WAz8eIbvDR60rouK">
+    ```typescript {{ title: 'axios'}}
+    const response = axios.post('/users/WAz8eIbvDR60rouK')
+    ```
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    {
+      "_id": "WAz8eIbvDR60rouK",
+      "name" :"John Doe",
+      "username": "john123",
+      "email": "john@gmail.com",
+      "password": "$2Sjio.35H9H23!F/",
+      "acc_type": 1,
+      "photo": "inEIRvzjC6YLMX3o3!F/",
+    }
+    ```
+
+  </Col>
+</Row>
+
+---
+
+## Update a user {{ tag: 'PUT', label: '/change-profile' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to perform an update on a user. Currently, the only attribute that can be updated on users is the `name`,`username`,`email`,`password` attribute which controls how a user appears in your user list in Protocol.
+
+    ### Optional attributes
+
+    <Properties>
+      <Property name="name" type="string">
+        The user name in the user list. By default, this is just the name.
+      </Property>
+      <Property name="username" type="string">
+        The user username in the user list. By default, this is just the username.
+      </Property>
+      <Property name="email" type="string">
+        The user email in the user list. By default, this is just the email.
+      </Property>
+      <Property name="bio" type="string">
+        The user bio in the user list. By default, this is just the bio.
+      </Property>
+      <Property name="photo" type="image">
+        The user photo in the user list. By default, this is just the photo.
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+     <CodeGroup title="Request" tag="PUT" label="/change-profile">
+    ```typescript {{ title: 'axios'}}
+    const response = axios.put('/change-profile', {
+      "name": "John Doe",
+      "username": "johndoe",
+      "email": "johndoe@gmail.com",
+      "bio": "Bio Example",
+      "acc_type": 1,
+      "photo": "inEIRvzjC6YLMX3o3!F/",
+    })
+    ```
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    {
+      "_id": "WAz8eIbvDR60rouK",
+      "name" :"Doe John",
+      "username": "doejohn123",
+      "email": "john321@gmail.com",
+      "bio": "Bio Example",
+      "acc_type": 1,
+      "photo": inEIRvzjC6YLMX3o3!F/,
+    }
+    ```
+
+  </Col>
+</Row>
+
+---
+
+## Update a user {{ tag: 'PUT', label: '/change-password' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to perform an update on a user. Currently, the only attribute that can be updated on users is the `name`,`username`,`email`,`password` attribute which controls how a user appears in your user list in Protocol.
+
+    ### Optional attributes
+
+    <Properties>
+      <Property name="password" type="string">
+        The password in the user list. By default, this is just the password.
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+
+     <CodeGroup title="Request" tag="PUT" label="/change-password">
+    ```typescript {{ title: 'axios'}}
+    const response = axios.put('/change-password', {
+      "password": inEIRvzjC6YLMX3o3!F/,
+    })
+    ```
+    </CodeGroup>
+
+    ```json {{ title: 'Response' }}
+    {
+      "_id": "WAz8eIbvDR60rouK",
+    }
+    ```
+
+  </Col>
+</Row>
+---
+
+## Delete a user {{ tag: 'DELETE', label: '/users/:user_id' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to delete users from your user list in Protocol. Note: This will also delete your conversation with the given user.
+
+  </Col>
+  <Col sticky>
+
+    <CodeGroup title="Request" tag="DELETE" label="/users/WAz8eIbvDR60rouK">
+
+    ```bash {{ title: 'cURL' }}
+    curl -X DELETE https://api.protocol.chat/users/WAz8eIbvDR60rouK \
+      -H "Authorization: Bearer {token}"
+    ```
+
+    ```js
+    import ApiClient from '@example/protocol-api'
+
+    const client = new ApiClient(token)
+
+    await client.users.delete('WAz8eIbvDR60rouK')
+    ```
+
+    ```python
+    from protocol_api import ApiClient
+
+    client = ApiClient(token)
+
+    client.users.delete("WAz8eIbvDR60rouK")
+    ```
+
+    ```php
+    $client = new \Protocol\ApiClient($token);
+
+    $client->users->delete('WAz8eIbvDR60rouK');
+    ```
+
+    </CodeGroup>
+
+  </Col>
+</Row>
